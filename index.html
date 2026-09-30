@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="You found the sign. Maybe you're bored. Maybe you're curious. 18+ only."
+  >
+
+  <meta
+    name="theme-color"
+    content="#050505"
+  >
+
+  <title>You Found It.</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================================
+       TOUCH TO ENTER
+       ========================================= -->
+
+  <div
+    id="enterScreen"
+    class="enter-screen"
+    role="button"
+    tabindex="0"
+    aria-label="Touch to enter"
+  >
+    <span class="enter-text">
+      Touch to enter
+    </span>
+  </div>
+
+
+  <!-- =========================================
+       MAIN EXPERIENCE
+       ========================================= -->
+
+  <main class="site">
+
+    <!-- Opening -->
+
+    <section
+      class="hero reveal"
+      data-delay="300"
+      aria-labelledby="page-title"
+    >
+
+      <h1 id="page-title">
+        You Found It.
+      </h1>
+
+      <p class="intro">
+        You saw the cardboard.<br>
+        You got curious.<br>
+        Here you are.
+      </p>
+
+    </section>
+
+
+    <!-- Suspense break -->
+
+    <div
+      class="divider reveal"
+      data-delay="1500"
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- Invitation -->
+
+    <section
+      class="invitation reveal"
+      data-delay="2100"
+      aria-labelledby="invitation-title"
+    >
+
+      <h2 id="invitation-title">
+        So... what happens now?
+      </h2>
+
+      <p>
+        Maybe we talk.<br>
+        Maybe we meet.<br>
+        Maybe there's chemistry.<br>
+        Maybe there isn't.
+      </p>
+
+      <p class="filter">
+        No script. No sales pitch. No weird expectations.
+      </p>
+
+      <p class="filter">
+        If you're the Barbie-doll type, disregard.
+        <strong>
+          If you've got something I can actually grab onto...
+          let's chat.
+        </strong>
+      </p>
+
+    </section>
+
+
+    <!-- Contact -->
+
+    <section
+      class="contact reveal"
+      data-delay="3900"
+      aria-labelledby="contact-title"
+    >
+
+      <div
+        id="contact-title"
+        class="contact-label"
+      >
+        Bored? Curious?
+      </div>
+
+      <a
+        class="email"
+        href="mailto:HMUifurBoredL8ter@gmail.com"
+        aria-label="Email HMU if you're bored later"
+      >
+        HMUifurBoredL8ter@gmail.com
+      </a>
+
+      <div class="age">
+        18+ only
+      </div>
+
+    </section>
+
+
+    <!-- Closing -->
+
+    <section
+      class="closing reveal"
+      data-delay="5000"
+      aria-label="Closing message"
+    >
+
+      <strong>
+        No promises. No pressure.
+      </strong>
+
+      <p>
+        Just see where it goes.
+      </p>
+
+      <p>
+        You found the door.<br>
+        What happens next is up to both of us.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       RESTART CONTROL
+       ========================================= -->
+
+  <button
+    id="restartButton"
+    class="restart"
+    type="button"
+    aria-label="Restart the experience"
+  >
+    Touch to restart
+  </button>
+
+
+  <!-- =========================================
+       JAVASCRIPT
+       ========================================= -->
+
+  <script src="script.js"></script>
+
+</body>
+</html>
