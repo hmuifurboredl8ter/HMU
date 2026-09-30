@@ -1,139 +1,245 @@
-/* =========================================================
-   HMU IF UR BORED L8TER
-   Touch-to-enter / staged reveal / restart
-   ========================================================= */
+const enterScreen =
+  document.getElementById("enterScreen");
 
-const enterScreen = document.getElementById("enterScreen");
-const restartButton = document.getElementById("restartButton");
-const revealElements = document.querySelectorAll(".reveal");
+const restartButton =
+  document.getElementById("restartButton");
 
+const scenes =
+  Array.from(
+    document.querySelectorAll(".scene")
+  );
+
+let currentScene = -1;
+let running = false;
 let timers = [];
-let started = false;
 
-/* -----------------------------------------
-   Clear all pending animation timers
-   ----------------------------------------- */
+const sceneDuration = 3000;
+const fadeDuration = 1000;
+
+
+/* =========================================
+   TIMER MANAGEMENT
+   ========================================= */
 
 function clearTimers() {
-  timers.forEach((timer) => clearTimeout(timer));
+  timers.forEach(clearTimeout);
   timers = [];
 }
 
-/* -----------------------------------------
-   Hide everything
-   ----------------------------------------- */
 
-function resetReveals() {
-  revealElements.forEach((element) => {
-    element.classList.remove("show");
+/* =========================================
+   SHOW SCENE
+   ========================================= */
 
-    /*
-      Force the browser to recognize the reset
-      before another animation begins.
-    */
-    void element.offsetWidth;
-  });
+function showScene(index) {
+
+  if (index < 0 || index >= scenes.length) {
+    finishExperience();
+    return;
+  }
+
+  const previous =
+    scenes[currentScene];
+
+  const next =
+    scenes[index];
+
+  if (previous) {
+    previous.classList.remove("active");
+    previous.classList.add("leaving");
+
+    const fadeTimer = setTimeout(() => {
+      previous.classList.remove("leaving");
+    }, fadeDuration);
+
+    timers.push(fadeTimer);
+  }
+
+  next.classList.add("active");
+  next.setAttribute("aria-hidden", "false");
+
+  currentScene = index;
+
+  /*
+    Hold the scene long enough to read,
+    then move to the next one.
+  */
+
+  const nextTimer = setTimeout(() => {
+
+    next.classList.remove("active");
+    next.setAttribute("aria-hidden", "true");
+
+    const followingTimer = setTimeout(() => {
+      showScene(index + 1);
+    }, fadeDuration);
+
+    timers.push(followingTimer);
+
+  }, sceneDuration);
+
+  timers.push(nextTimer);
 }
 
-/* -----------------------------------------
-   Start the experience
-   ----------------------------------------- */
+
+/* =========================================
+   START
+   ========================================= */
 
 function startExperience() {
-  if (started) return;
 
-  started = true;
+  if (running) return;
+
+  running = true;
+
   clearTimers();
-  resetReveals();
 
-  /* Remove entry screen */
+  currentScene = -1;
+
+  scenes.forEach((scene) => {
+    scene.classList.remove(
+      "active",
+      "leaving"
+    );
+
+    scene.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+  });
 
   enterScreen.classList.add("hidden");
 
   /*
-    Stagger the page into existence.
-    Each section gets a little more breathing
-    room before appearing.
-  */
-
-  revealElements.forEach((element) => {
-    const delay = Number(element.dataset.delay) || 0;
-
-    const timer = setTimeout(() => {
-      element.classList.add("show");
-    }, delay);
-
-    timers.push(timer);
-  });
-}
-
-/* -----------------------------------------
-   Restart the experience
-   ----------------------------------------- */
-
-function restartExperience() {
-  clearTimers();
-  started = false;
-
-  /*
-    Fade the page back into darkness.
-  */
-
-  revealElements.forEach((element) => {
-    element.classList.remove("show");
-  });
-
-  /*
-    Wait just long enough for the disappearance
-    to feel intentional.
+    Give the entrance fade a moment
+    before the first scene appears.
   */
 
   const timer = setTimeout(() => {
-    enterScreen.classList.remove("hidden");
-  }, 500);
+    showScene(0);
+  }, 900);
 
   timers.push(timer);
 }
 
-/* -----------------------------------------
-   Touch / click entry
-   ----------------------------------------- */
 
-enterScreen.addEventListener("click", startExperience);
+/* =========================================
+   FINISH
+   ========================================= */
 
-/* -----------------------------------------
-   Keyboard accessibility
-   ----------------------------------------- */
+function finishExperience() {
 
-enterScreen.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    startExperience();
+  running = false;
+
+  clearTimers();
+
+  const last =
+    scenes[scenes.length - 1];
+
+  if (last) {
+    last.classList.remove("active");
+    last.setAttribute(
+      "aria-hidden",
+      "true"
+    );
   }
-});
 
-/* -----------------------------------------
-   Restart button
-   ----------------------------------------- */
+  currentScene = -1;
 
-restartButton.addEventListener("click", (event) => {
-  event.stopPropagation();
-  restartExperience();
-});
+  /*
+    Return to the black entrance screen.
+  */
 
-/* -----------------------------------------
-   Touch anywhere to restart
-   after the experience has completed
-   ----------------------------------------- */
+  const timer = setTimeout(() => {
+    enterScreen.classList.remove("hidden");
+  }, 1200);
+
+  timers.push(timer);
+}
+
+
+/* =========================================
+   RESTART
+   ========================================= */
+
+function restartExperience() {
+
+  clearTimers();
+
+  running = false;
+
+  scenes.forEach((scene) => {
+    scene.classList.remove(
+      "active",
+      "leaving"
+    );
+
+    scene.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+  });
+
+  currentScene = -1;
+
+  enterScreen.classList.remove("hidden");
+}
+
+
+/* =========================================
+   ENTER SCREEN
+   ========================================= */
+
+enterScreen.addEventListener(
+  "click",
+  startExperience
+);
+
+enterScreen.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (
+      event.key === "Enter" ||
+      event.key === " "
+    ) {
+      event.preventDefault();
+      startExperience();
+    }
+
+  }
+);
+
+
+/* =========================================
+   RESTART BUTTON
+   ========================================= */
+
+restartButton.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+    restartExperience();
+
+  }
+);
+
+
+/* =========================================
+   TAP ANYWHERE TO RESTART
+   AFTER FINAL SCENE
+   ========================================= */
 
 document.addEventListener(
   "click",
   (event) => {
-    if (!started) return;
+
+    if (!running) return;
 
     /*
-      Don't interfere with the email link
-      or restart button.
+      Don't hijack the email.
     */
 
     if (
@@ -144,46 +250,43 @@ document.addEventListener(
     }
 
     /*
-      Only restart once the final section
-      has had time to appear.
+      If the final scene is currently
+      visible, tapping restarts.
     */
 
-    const finalSection = document.querySelector(".closing");
-
     if (
-      finalSection &&
-      finalSection.classList.contains("show")
+      currentScene === scenes.length - 1
     ) {
       restartExperience();
     }
+
   }
 );
 
-/* -----------------------------------------
-   Touch support
-   ----------------------------------------- */
+
+/* =========================================
+   TOUCH ANYWHERE TO RESTART
+   ========================================= */
 
 document.addEventListener(
   "touchend",
   (event) => {
-    if (!started) return;
+
+    if (!running) return;
 
     if (
       event.target.closest(".email") ||
-      event.target.closest(".restart") ||
-      event.target.closest(".enter-screen")
+      event.target.closest(".restart")
     ) {
       return;
     }
 
-    const finalSection = document.querySelector(".closing");
-
     if (
-      finalSection &&
-      finalSection.classList.contains("show")
+      currentScene === scenes.length - 1
     ) {
       restartExperience();
     }
+
   },
   {
     passive: true
