@@ -5,12 +5,12 @@
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
   <meta
     name="description"
-    content="You found the sign. Maybe you're bored. Maybe you're curious. 18+ only."
+    content="You found the sign. 18+ only."
   >
 
   <meta
@@ -43,148 +43,189 @@
 
 
   <!-- =========================================
-       MAIN EXPERIENCE
+       EXPERIENCE
        ========================================= -->
 
-  <main class="site">
+  <main
+    id="experience"
+    class="experience"
+    aria-live="polite"
+  >
 
-    <!-- Opening -->
+    <!-- SCENE 1 -->
 
     <section
-      class="hero reveal"
-      data-delay="300"
-      aria-labelledby="page-title"
+      class="scene"
+      data-scene="1"
+      aria-hidden="true"
     >
+      <h1>You Found It.</h1>
 
-      <h1 id="page-title">
-        You Found It.
-      </h1>
-
-      <p class="intro">
+      <p>
         You saw the cardboard.<br>
         You got curious.<br>
         Here you are.
       </p>
-
     </section>
 
 
-    <!-- Suspense break -->
-
-    <div
-      class="divider reveal"
-      data-delay="1500"
-      aria-hidden="true"
-    ></div>
-
-
-    <!-- Invitation -->
+    <!-- SCENE 2 -->
 
     <section
-      class="invitation reveal"
-      data-delay="2100"
-      aria-labelledby="invitation-title"
+      class="scene"
+      data-scene="2"
+      aria-hidden="true"
     >
+      <p class="small-line">
+        You could've kept walking.
+      </p>
 
-      <h2 id="invitation-title">
-        So... what happens now?
+      <h2>
+        But you didn't.
+      </h2>
+    </section>
+
+
+    <!-- SCENE 3 -->
+
+    <section
+      class="scene"
+      data-scene="3"
+      aria-hidden="true"
+    >
+      <h2>
+        So...
       </h2>
 
       <p>
-        Maybe we talk.<br>
-        Maybe we meet.<br>
-        Maybe there's chemistry.<br>
-        Maybe there isn't.
+        What happens now?
       </p>
-
-      <p class="filter">
-        No script. No sales pitch. No weird expectations.
-      </p>
-
-      <p class="filter">
-        If you're the Barbie-doll type, disregard.
-        <strong>
-          If you've got something I can actually grab onto...
-          let's chat.
-        </strong>
-      </p>
-
     </section>
 
 
-    <!-- Contact -->
+    <!-- SCENE 4 -->
 
     <section
-      class="contact reveal"
-      data-delay="3900"
-      aria-labelledby="contact-title"
+      class="scene"
+      data-scene="4"
+      aria-hidden="true"
     >
+      <p>
+        Maybe we talk.<br>
+        Maybe we meet.<br>
+        Maybe there's chemistry.
+      </p>
 
-      <div
-        id="contact-title"
-        class="contact-label"
-      >
-        Bored? Curious?
-      </div>
+      <p class="muted">
+        Maybe there isn't.
+      </p>
+    </section>
+
+
+    <!-- SCENE 5 -->
+
+    <section
+      class="scene"
+      data-scene="5"
+      aria-hidden="true"
+    >
+      <p class="quiet">
+        No script.<br>
+        No sales pitch.<br>
+        No weird expectations.
+      </p>
+    </section>
+
+
+    <!-- SCENE 6 -->
+
+    <section
+      class="scene"
+      data-scene="6"
+      aria-hidden="true"
+    >
+      <p class="filter">
+        If you're the Barbie-doll type,
+        disregard.
+      </p>
+
+      <p class="grab">
+        If you've got something<br>
+        I can actually grab onto...
+      </p>
+    </section>
+
+
+    <!-- SCENE 7 -->
+
+    <section
+      class="scene"
+      data-scene="7"
+      aria-hidden="true"
+    >
+      <h2>
+        Let's chat.
+      </h2>
+
+      <p class="muted">
+        18+ only.
+      </p>
+    </section>
+
+
+    <!-- SCENE 8 -->
+
+    <section
+      class="scene"
+      data-scene="8"
+      aria-hidden="true"
+    >
+      <p class="small-line">
+        You found the door.
+      </p>
 
       <a
         class="email"
         href="mailto:HMUifurBoredL8ter@gmail.com"
-        aria-label="Email HMU if you're bored later"
       >
         HMUifurBoredL8ter@gmail.com
       </a>
-
-      <div class="age">
-        18+ only
-      </div>
-
     </section>
 
 
-    <!-- Closing -->
+    <!-- SCENE 9 -->
 
     <section
-      class="closing reveal"
-      data-delay="5000"
-      aria-label="Closing message"
+      class="scene"
+      data-scene="9"
+      aria-hidden="true"
     >
+      <p class="final-line">
+        No promises.<br>
+        No pressure.
+      </p>
 
-      <strong>
-        No promises. No pressure.
-      </strong>
-
-      <p>
+      <h2>
         Just see where it goes.
-      </p>
-
-      <p>
-        You found the door.<br>
-        What happens next is up to both of us.
-      </p>
-
+      </h2>
     </section>
 
   </main>
 
 
   <!-- =========================================
-       RESTART CONTROL
+       RESTART
        ========================================= -->
 
   <button
     id="restartButton"
     class="restart"
     type="button"
-    aria-label="Restart the experience"
+    aria-label="Restart"
   >
-    Touch to restart
+    Restart
   </button>
 
-
-  <!-- =========================================
-       JAVASCRIPT
-       ========================================= -->
 
   <script src="script.js"></script>
 
